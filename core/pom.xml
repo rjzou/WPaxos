@@ -113,6 +113,30 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- 拷贝依赖的jar包到lib目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>mvn-antrun-process-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <tasks>
+                        <!-- copy the properties file into the temporary directory -->
+                        <delete file="${project.basedir}/../rui/wpaxos/bin/*" />
+                        <copy file="${basedir}/target/wpaxos.core-1.0.0.jar" 
+                        tofile="${project.basedir}/../../rui/wpaxos/bin/wpaxos.core-1.0.0.jar" overwrite="true"/>
+                        
+                        <!--<sleep seconds="3"></sleep>-->
+                    </tasks>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
